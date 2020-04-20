@@ -21,7 +21,7 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 `brew cask install adoptopenjdk11`
 ---
 
-2. **NVM & NodeJS**  
+2. **NVM**  
 * Linux  
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash`  
 * Windows  
@@ -33,18 +33,18 @@ Add the following lines to your ~/.bash_profile file:
 `export NVM_DIR=~/.nvm`  
 `source $(brew --prefix nvm)/nvm.sh`  
 
-* Install NodeJS  
-Set your terminal's current working directory to the root of the repo  
+3. **NodeJS**  
+* Set your terminal's current working directory to the root of the repo and run:  
 `nvm install`  
 
 ---
 
-3. **Yarn**
+4. **Yarn**
 * Follow the install instructions for your OS here:
 https://classic.yarnpkg.com/en/docs/install/
 --- 
 
-4. **Dependencies**   
+5. **Dependencies**   
 `yarn install`  
 <br/>
 <br/>
