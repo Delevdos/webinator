@@ -15,6 +15,13 @@ class API {
 	#bearerHeader(content_type, token) {
 		return content_type.Authorization = `Bearer ${token}`;
 	}
+
+	/**
+	 * Get the status for the URL page link provided
+	 */
+	getPageStatus(url) {
+		return Request('GET', url, { headers: this.json_header }).statusCode;
+	}
 	
 }
 
