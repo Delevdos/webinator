@@ -58,4 +58,4 @@ All spec files only require 2 import statements.
 
 ## Licensing
 
-MIT
+GNU GPL v3
