@@ -10,13 +10,13 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 
 
 1. OpenJDK/JRE  
-* Linux  
-...*`sudo apt-get install openjdk-11-jre-headless`  
-* Windows  
-...*`choco install openjdk --version=11.0`  
-* Mac  
-...*`brew tap AdoptOpenJDK/openjdk`  
-...*`brew cask install adoptopenjdk11`
+..* Linux  
+...`sudo apt-get install openjdk-11-jre-headless`  
+..* Windows  
+...`choco install openjdk --version=11.0`  
+..* Mac  
+...`brew tap AdoptOpenJDK/openjdk`  
+...`brew cask install adoptopenjdk11`
 
 
 #### 2. NVM  
