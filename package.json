@@ -59,7 +59,7 @@
 	"main": "index.js",
 	"name": "webinator",
 	"scripts": {
-		"debug": "node node_modules/.bin/wdio ./config/debug.conf.js"
+		"debug": "node_modules/.bin/wdio ./config/debug.conf.js"
 	},
 	"version": "1.0.0"
 }
