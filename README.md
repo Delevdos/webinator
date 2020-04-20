@@ -26,9 +26,9 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 * Mac  
 &nbsp;&nbsp;&nbsp;&nbsp;`brew update && brew install nvm`  
 &nbsp;&nbsp;&nbsp;&nbsp;`mkdir ~/.nvm`  
-&nbsp;Add the following lines to your ~/.bash_profile file:  
-> export NVM_DIR=~/.nvm <br/>
-> source $(brew --prefix nvm)/nvm.sh
+Add the following lines to your ~/.bash_profile file:  
+> &nbsp;&nbsp;&nbsp;&nbsp;export NVM_DIR=~/.nvm <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;source $(brew --prefix nvm)/nvm.sh
 
 3. **[Yarn](https://classic.yarnpkg.com/en/docs/install/)**
 
