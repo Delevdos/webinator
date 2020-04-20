@@ -10,7 +10,7 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 
 
 #### 1. OpenJDK/JRE
-##### Linux
+**Linux**
 `sudo apt-get install openjdk-11-jre-headless`
 ##### Windows
 `choco install openjdk --version=11.0`
@@ -20,18 +20,17 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 
 
 #### 2. NVM
-##### Linux
+**Linux**
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash`
 ##### Windows
 `choco install nvm`
 ##### Mac
 `brew update && brew install nvm`
 `mkdir ~/.nvm`
+
 Add the following lines to your ~/.bash_profile file:
-```
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-```
+> export NVM_DIR=~/.nvm
+> source $(brew --prefix nvm)/nvm.sh
 
 
 #### 3. [Yarn](https://classic.yarnpkg.com/en/docs/install/)
