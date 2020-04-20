@@ -1,14 +1,16 @@
 # Webinator Automation Framework
 Webinator is a JavaScript(ES8) web automation framework built using WebdriverIO v6 APIs and Mocha.
 
-This framework was built knowing that no website is the same, so why would the same automation work for every site? We've done the heavy lifting to make Mocha and Webdriver adaptable for your system under test. With pre-setup classes for mapping elements and running tests, you can easily modify any of the functions for each class to suit your needs. This can help save time such as being able to check for pop-ups before every click.
+This framework was built knowing that no website is the same, so why would the same automation work for every site? We've done the heavy lifting to make Mocha and Webdriver adaptable for your system under test. With pre-setup classes for mapping elements and running tests, you can easily modify any of the base functions for each class to suit your needs. By doing this, it gives you the ability to easily adapt the framework itself to your needs.
 
-We also wanted to make it simple for any new automation engineer to pick up and start writing tests. The page object design we use is meant to make calls to page elements and functions intuitive. To help with this, the Babel compiler includes the class properties and private functions plugins to add a bit more organizational capabilities to vanilla JavaScript.
+We also wanted to make it simple for any new automation engineers to pick up and start writing tests. As well as giving room for experienced automaters room to expand everything to make your tests as robust as possible.
+
+For the licensing we decided to go with GPLv3. This is meant to keep the code freely available for both individuals working on passion projects and companies ensuring their product is ready for prime time. We just ask that you not repackage and resell it. Instead feel free to open bug and feature tickets and contriubte to the code to help everyone who uses this framework.
 <br/>
 <br/>
 
 ## Installation
-The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows and that you have the repository cloned locally. All commands will be ran inside your OSes terminal (powershell on Winodws).
+The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows and that you have the repository cloned locally. All commands will be ran inside your OS terminal (powershell on Winodws).
 
 
 1. **OpenJDK/JRE** 
@@ -32,15 +34,15 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 Add the following lines to your ~/.bash_profile file:  
 `export NVM_DIR=~/.nvm`  
 `source $(brew --prefix nvm)/nvm.sh`  
+---
 
 3. **NodeJS**  
 * Set your terminal's current working directory to the root of the repo and run:  
 `nvm install`  
-
 ---
 
 4. **Yarn**
-* Follow the install instructions for your OS here:
+* Follow the install instructions for your OS here: 
 https://classic.yarnpkg.com/en/docs/install/
 --- 
 
@@ -50,15 +52,57 @@ https://classic.yarnpkg.com/en/docs/install/
 <br/>
 
 ## Page Objects
-The page object model follows a navigation hierarchy.
+The page object model follows a navigation based hierarchy. The idea being that any call to a page object's element or function starts at the home page and class properties are mapped naturally. Having worked with newer automation engineers I can tell you it makes it much easier for them to jump in and start automating test cases.
+
+Here's an example of how this looks in practice:
+```javascript
+class Page {
+
+	constructor() {
+		this.About = AboutPage;
+		this.UI = Page.UI;
+	}
+
+	open() {
+		// open the page
+	}
+
+}
+
+Page.UI = class {
+
+	static get moreInfoButton() { return new WebComponent('//XPath') }
+
+}
+```
 <br/>
 <br/>
 
 ## Test Cases
-All spec files only require 2 import statements.
+Due to the way that the page objects are built, accessors are organized in the same manner that you would access the page on the site. This makes it easier to translate written test case steps into automated steps for new engineers. It also provides an added level of readability to the test scripts, making code reviews easier as well.
+
+
+```javascript
+import { Test } from '../index';
+import Page from '../page_objects/page';
+
+Test.Suite('About Page', () => {
+
+	Test.TestCase('Verify about page info accordian', () => {
+		
+		// Calling page object function
+		Page.About.waitForPageToLoad();
+
+		// Calling page object UI element
+		Page.About.UI.moreInfoButton.click();
+
+	});
+
+});
+```
 <br/>
 <br/>
 
 ## Licensing
 
-GNU GPL v3
+GPLv3
