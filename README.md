@@ -8,7 +8,7 @@ We also wanted to make it simple for any new automation engineer to pick up and 
 <br/>
 
 ## Installation
-The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows. All commands will be ran inside your OSes terminal (powershell on Winodws).
+The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows and that you have the repository cloned locally. All commands will be ran inside your OSes terminal (powershell on Winodws).
 
 
 1. **OpenJDK/JRE** 
@@ -21,7 +21,7 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 `brew cask install adoptopenjdk11`
 ---
 
-2. **NVM**  
+2. **NVM & NodeJS**  
 * Linux  
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash`  
 * Windows  
@@ -32,6 +32,11 @@ The below installation steps assume that you have `brew` installed for Mac or `c
 Add the following lines to your ~/.bash_profile file:  
 `export NVM_DIR=~/.nvm`  
 `source $(brew --prefix nvm)/nvm.sh`  
+
+* Install NodeJS  
+Set your terminal's current working directory to the root of the repo
+`nvm install`
+
 ---
 
 3. **Yarn**
@@ -39,9 +44,7 @@ Add the following lines to your ~/.bash_profile file:
 https://classic.yarnpkg.com/en/docs/install/
 --- 
 
-4. **Dependencies**  
-* After cloning the repository to your machine, set your terminals current working directory to the root of the repo.  
-`nvm install`  
+4. **Dependencies**   
 `yarn install`
 <br/>
 <br/>
