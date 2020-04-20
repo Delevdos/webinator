@@ -1,17 +1,21 @@
-import request from 'sync-request';
+import { Request } from '../index';
 
 class API {
 
 	constructor() {
-		this.header = { 'Content-Type': 'application/json' };
+		this.json_header = { 'Content-Type': 'application/json' }
+		this.xml_header = { 'Content-Type': 'application/xml' }
 	}
 
-	#bearerHeader(token) {
-		return {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`
-		};
+	/**
+	 * Get request header with bearer token
+	 * @param {Object} content_type - Object containing request Content-Type
+	 * @param {String} token - Bearer token for request header
+	 */
+	#bearerHeader(content_type, token) {
+		return content_type.Authorization = `Bearer ${token}`;
 	}
+	
 }
 
-export default new API;
+export default new API
