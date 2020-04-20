@@ -5,13 +5,18 @@ We've done the heavy lifting to make Mocha and Webdriver adaptable for your syst
 
 
 ## Installation
+The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows. All commands will be ran inside your OSes terminal (powershell on Winodws).
+
+
 ### 1. OpenJDK/JRE
 #### Linux
 ```
 sudo apt-get install openjdk-11-jre-headless
 ```
 #### Windows
-Navigate to the [JDK website](https://jdk.java.net/14/) and install OpenJDK 14.
+```
+choco install openjdk --version=11.0
+```
 #### Mac
 ```
 brew tap AdoptOpenJDK/openjdk
@@ -21,24 +26,42 @@ brew cask install adoptopenjdk11
 ```
 
 
-### 2. NodeJS
-Linux:
+### 2. NVM
+#### Linux
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+#### Windows
+```
+choco install nvm
+```
+#### Mac
+```
+brew update && brew install nvm
+```
+```
+mkdir ~/.nvm
+```
+Add the following lines to your ~/.bash_profile file:
+```
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+```
 
-Windows:
 
-Mac:
-
-
-### 3. NVM
-Linux:
-
-Windows:
+### 3. [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 
 
-### 4. Yarn
-Linux:
+### 4. Dependencies
+After cloning the repository to your machine, set your terminals current working directory to the root of the repo.
 
-Windows:
+#### All
+```
+nvm install
+```
+```
+yarn install
+```
 
 
 ## Licensing
