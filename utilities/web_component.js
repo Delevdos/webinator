@@ -285,6 +285,14 @@ export default class WebComponent {
 	}
 
 	/**
+	 * Wait for function options
+	 * @typedef {Object} WaitForOptions
+	 * @property {Number=} ms - Time to wait in milliseconds
+	 * @property {String=} error - Error message to throw if wait conditions are not met within time limit
+	 * @property {Number=} interval - Time to wait between checks in milliseconds
+	 */
+
+	/**
 	 * Generic wait for callback function to return true
 	 * @param {Number} ms - Time to wait for callback to return true in milliseconds
 	 * @param {function} callback - Function to execute and wait to return true
@@ -294,8 +302,8 @@ export default class WebComponent {
 	#waitFor(ms, interval, callback, error_message) {
 		const end_time = Date.now() + ms;
 
-		while(Date.now < end_time || !callback()) {
-			browser.pause(interval)
+		while(Date.now() < end_time && callback() != true) {
+			browser.pause(interval);
 		}
 
 		if(!callback()) {
@@ -305,78 +313,58 @@ export default class WebComponent {
 
 	/**
 	 * Wait for element to become clickable, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is not clickable within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForClickable({ms = 15000, error = `${this.element.selector} was not clickable within timelimit of ${ms}`, interval = 100}={}) {
-		this.#waitFor(ms, interval, this.isClickable, error);
+		this.#waitFor(ms, interval, () => {return this.isClickable()}, error);
 	}
 
 	/**
 	 * Wait for element to be displayed, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForDisplayed({ms = 15000, error = `${this.element.selector} was not displayed within timelimit of ${ms}`, interval = 100}={}){
-		this.#waitFor(ms, interval, this.isDisplayed, error);
+		this.#waitFor(ms, interval, () => {return this.isDisplayed()}, error);
 	}
 
 	/**
 	 * Wait for element to not be displayed, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForNotDisplayed({ms = 15000, error = `${this.element.selector} was still displayed within the time limit of ${ms}`, interval = 100}={}){
-		this.#waitFor(ms, interval, () => {
-			return !this.isDisplayed();
-		}, error);
+		this.#waitFor(ms, interval, () => {return !this.isDisplayed()}, error);
 	}
 
 	/**
 	 * Wait for element to become enabled, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
-	waitForEnabled({ms = 15000, error = `${this.element.selector} was not enabled within the time limit of ${ms}`, interval}={}){
-		this.#waitFor(ms, interval, this.isEnabled, error);
+	waitForEnabled({ms = 15000, error = `${this.element.selector} was not enabled within the time limit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, () => {return this.waitForEnabled()}, error);
 	}
 
 	/**
 	 * Wait for element to become disabled, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForDisabled({ms = 15000, error = `${this.element.selector} was not disabled within the time limit of ${ms}`, interval = 100}={}){
-		this.#waitFor(ms, interval, () => {
-			return !this.isEnabled();
-		}, error);
+		this.#waitFor(ms, interval, () => {return !this.isEnabled()}, error);
 	}
 
 	/**
 	 * Wait for element to exist, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForExist({ms = 15000, error = `${this.element.selector} did not exist within the time limit of ${ms}`, interval = 100}={}){
-		this.#waitFor(ms, interval, this.isExisting, error);
+		this.#waitFor(ms, interval, () => {return this.isExisting()}, error);
 	}
 	
 	/**
 	 * Wait for element to not exist, otherwise throw an error
-	 * @param {Number} ms - Time to wait in milliseconds
-	 * @param {String} error - Error message to throw if element is // within time limit
-	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 * @param {...WaitForOptions} param0 - {@link WaitForOptions}
 	 */
 	waitForNotExist({ms = 15000, error = `${this.element.selector} still existed within the time limit of ${ms}`, interval = 100}={}){
-		this.#waitFor(ms, interval, () => {
-			return !this.isExisting();
-		}, error);
+		this.#waitFor(ms, interval, () => {return !this.isExisting()}, error);
 	}
 
 }
