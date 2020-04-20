@@ -34,8 +34,8 @@ Add the following lines to your ~/.bash_profile file:
 `source $(brew --prefix nvm)/nvm.sh`  
 
 * Install NodeJS  
-Set your terminal's current working directory to the root of the repo
-`nvm install`
+Set your terminal's current working directory to the root of the repo  
+`nvm install`  
 
 ---
 
@@ -45,7 +45,7 @@ https://classic.yarnpkg.com/en/docs/install/
 --- 
 
 4. **Dependencies**   
-`yarn install`
+`yarn install`  
 <br/>
 <br/>
 
