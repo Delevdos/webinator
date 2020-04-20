@@ -1,172 +1,382 @@
-import { API } from '../index';
-
 export default class WebComponent {
 
+	/**
+	 * Returns a custom WebdriverIO web element
+	 * @param {String} mapping - XPath for the desired element
+	 */
 	constructor(mapping) {
-		this.element = $(`${mapping}`);
+		this.element = $(mapping);
 	}
 
+	/**
+	 * Fetch the child element on the page
+	 * @param {String} selector - XPath for the child element
+	 */
 	$(selector){
-		return new WebComponent(`${this.element.mapping}${selector}`);
+		return new WebComponent(`${this.element.selector}${selector}`);
 	}
 
+	/**
+	 * Fetch all child elements on the page with the matching selector
+	 * @param {String} selector - XPath for child elements
+	 */
 	$$(selector){
-		
+		return this.$(selector).occurrences;
 	}
 
+	/**
+	 * Add a value to an object found by given selector
+	 * @param {String} value - Value to be added to the element
+	 */
 	addValue(value){
 		this.element.addValue(value);
 	}
 
-	clearValue(){
+	/**
+	 * Clear a <textarea> or text <input> element’s value
+	 */
+	clearValue() {
 		this.element.clearValue();
 	}
 
-	click(){
+	/**
+	 * This issues a Webdriver click command for the selected element
+	 */
+	click() {
 		this.element.click();
 	}
 
-	doubleClick(){
+	/**
+	 * Double-click on the element
+	 */
+	doubleClick() {
 		this.element.doubleClick();
 	}
 
-	dragAndDrop(target, duration){
-		this.element.dragAndDrop(target, duration);
+	/**
+	 * Drag an item to a destination element
+	 * @param {WebComponent} target - WebComponent to end drag and drop on
+	 * @param {DragAndDropOptions} options - dragAndDrop command options
+	 * @param {Number} duration - How long the drag should take place
+	 */
+	dragAndDrop(target, {options, duration}={}) {
+		this.element.dragAndDrop(target.element, options, duration);
 	}
 
-	drawHighlight(){
-		// TODO: Rewrite this whole fucker to be cleaner
-		const originalBorder = this.element.getCSSProperty('border');
+	/**
+	 * Draw a highlight border around the element
+	 * @param {Number} ms - Time in milliseconds to highlight element
+	 */
+	drawHighlight(ms = 3000){
+		
+		const original_border = this.getCSSProperty('border');
 
-		browser.pause(1000);
 		browser.execute(`arguments[0].style.border='5px solid red'`, this.element);
-		browser.pause(3000);
+		browser.pause(ms);
 
-		if(originalBorder != null) {
-			browser.execute(`arguments[0].style.border='${originalBorder.value}'`, this.element);
+		if(original_border != null) {
+			browser.execute(`arguments[0].style.border='${original_border.value}'`, this.element);
 		} else {
 			browser.execute(`arguments[0].removeAttribute('style', 'border')`, this.element);
 		}
 	}
 
+	/**
+	 * Returns true if the element exists in the DOM
+	 */
+	get exists() {
+		return this.isExisting();
+	}
+
+	/**
+	 * Get an attribute from a DOM-element based on the attribute name
+	 * @param {String} attribute_name - Element attribute to retrieve
+	 */
 	getAttribute(attribute_name){
 		return this.element.getAttribute(attribute_name);
 	}
 
+	/**
+	 * Get a css property for the element
+	 * @param {String} css_property - CSS property name
+	 */
 	getCSSProperty(css_property){
 		return this.element.getCSSProperty(css_property);
 	}
 
-	getHTML(include_selector_tag){
+	/**
+	 * Get source code of specified DOM element
+	 * @param {Boolean} include_selector_tag - If true it includes the selector element tag
+	 */
+	getHTML(include_selector_tag = true){
 		return this.element.getHTML(include_selector_tag);
 	}
 
+	/**
+	 * Determine an element’s location on the page, (0, 0) being the upper left
+	 * @param {String} prop - Can be "x" or "y" to get a result value directly for easier assertions
+	 */
 	getLocation(prop){
 		return this.element.getLocation(prop);
 	}
 
+	/**
+	 * Get all element occurences that match provided selector 
+	 */
+	get occurrences() {
+		const elements = [];
+
+		for (let i = 1; i <= $$(this.element.selector).length; i++) {
+			elements.push(new WebComponent(`(${this.element.selector})[${i}]`));
+		}
+
+		return elements;
+	}
+
+	/**
+	 * Returns the value of the property for the element
+	 * @param {String} property - Name of the element property to get
+	 */
 	getProperty(property){
 		return this.element.getProperty(property);
 	}
 
-	getSize(){
+	/**
+	 * Get the width and height for the element
+	 */
+	getSize() {
 		return this.element.getSize();
 	}
 
-	getTagName(){
+	/**
+	 * Get tag name of the element
+	 */
+	getTagName() {
 		return this.element.getTagName();
 	}
 
-	getText(){
+	/**
+	 * Get the text content from the element
+	 */
+	getText() {
 		return this.element.getText();
 	}
 
-	getValue(){
+	/**
+	 * Get the value of <textarea>, <select> or text <input> for the element
+	 */
+	getValue() {
 		return this.element.getValue();
 	}
 
-	isDisplayed(){
+	/**
+	 * Return true if the element exists, is visible, is within viewport, its center is not overlapped with another element, and is not disabled
+	 */
+	isClickable() {
+		this.element.isClickable();
+	}
+
+	/**
+	 * Return true if the element is displayed
+	 */
+	isDisplayed() {
 		return this.element.isDisplayed();
 	}
 
-	isNotDisplayed(){
-		return !this.element.isDisplayed();
-	}
-
-	isDisplayedInViewport(){
+	/**
+	 * Return true if the element is partially visible and within the viewport
+	 */
+	isDisplayedInViewport() {
 		return this.element.isDisplayedInViewport();
 	}
 
-	isEnabled(){
+	/**
+	 * Return true if the element is enabled
+	 */
+	isEnabled() {
 		return this.element.isEnabled();
 	}
+	
+	/**
+	 * Return true if the element matches the provided element
+	 * @param {WebComponent} element - Element to compare with
+	 */
+	isEqual(element) {
+		return this.element.isEqual(element.element);
+	}
 
-	isExisting(){
+	/**
+	 * Returns true if the element exists in the DOM
+	 */
+	isExisting() {
 		return this.element.isExisting();
 	}
 
-	isFocused(){
+	/**
+	 * Return true if the element currently has focus
+	 */
+	isFocused() {
 		return this.element.isFocused();
 	}
 
-	isSelected(){
+	/**
+	 * Returns true if the <option> or <input> element of type checkbox or radio is currently selected
+	 */
+	isSelected() {
 		return this.element.isSelected();
 	}
 
-	moveTo(x_offset=0, y_offset=0){
+	/**
+	 * Move the mouse by an offset of the specified element
+	 * @param {Number} x_offset
+	 * @param {Number} y_offset
+	 */
+	moveTo({x_offset=0, y_offset=0}={}){
 		this.element.moveTo(x_offset, y_offset);
 	}
 
+	/**
+	 * Save a screenshot of an element to a PNG file on your OS
+	 * @param {String} filename - {ath to the generated image (.png suffix is required) relative to the execution directory
+	 */
 	saveScreenshot(filename){
 		this.element.saveScreenshot(filename);
 	}
 
-	scrollIntoView(options){
+	/**
+	 * Scroll element into the viewport
+	 * @param {Object, Boolean} options - Options for Element.scrollIntoView()
+	 */
+	scrollIntoView(options = true){
 		this.element.scrollIntoView(options);
 	}
 
+	/**
+	 * Select <option/> with a specific value
+	 * @param {String} attribute - Attribute of <option/> element to get selected
+	 * @param {String} value - Value of <option/> element to get selected
+	 */
 	selectByAttribute(attribute, value){
 		this.element.selectByAttribute(attribute, value);
 	}
 
+	/**
+	 * Select <option/> with a specific index
+	 * @param {Number} index - Option index
+	 */
 	selectByIndex(index){
 		this.element.selectByIndex(index);
 	}
 
+	/**
+	 * Select <option/> with displayed text matching the argument
+	 * @param {String} text - Text of <option/> element to get selected
+	 */
 	selectByVisibleText(text){
 		this.element.selectByVisibleText(text);
 	}
 
+	/**
+	 * Send a sequence of key strokes to an element (clears value before)
+	 * @param value - Value to be added
+	 */
 	setValue(value){
 		this.element.setValue(value);
 	}
 
-	touchAction(action){
-		this.element.touchAction(action);
+	/**
+	 * Generic wait for callback function to return true
+	 * @param {Number} ms - Time to wait for callback to return true in milliseconds
+	 * @param {function} callback - Function to execute and wait to return true
+	 * @param {String} error_message - Error message to throw if callback does not return true within time limit
+	 * @param {Number} interval - Time to wait between callback check in milliseconds
+	 */
+	#waitFor(ms, interval, callback, error_message) {
+		const end_time = Date.now() + ms;
+
+		while(Date.now < end_time || !callback()) {
+			browser.pause(interval)
+		}
+
+		if(!callback()) {
+			throw new Error(error_message);
+		}
 	}
 
-	waitForDisplayed(ms = 15000, error = `${this.mapping} was not displayed before ${ms}`){
-		
+	/**
+	 * Wait for element to become clickable, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is not clickable within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForClickable({ms = 15000, error = `${this.element.selector} was not clickable within timelimit of ${ms}`, interval = 100}={}) {
+		this.#waitFor(ms, interval, this.isClickable, error);
 	}
 
-	waitForNotDisplayed(ms = 15000, error = `${this.mapping} was still displayed before timeout`){
-		
+	/**
+	 * Wait for element to be displayed, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForDisplayed({ms = 15000, error = `${this.element.selector} was not displayed within timelimit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, this.isDisplayed, error);
 	}
 
-	waitForEnabled(ms = 15000){
-		
+	/**
+	 * Wait for element to not be displayed, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForNotDisplayed({ms = 15000, error = `${this.element.selector} was still displayed within the time limit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, () => {
+			return !this.isDisplayed();
+		}, error);
 	}
 
-	waitForDisabled(ms = 15000, error = `${this.mapping} was not disabled before timeout`){
-		
+	/**
+	 * Wait for element to become enabled, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForEnabled({ms = 15000, error = `${this.element.selector} was not enabled within the time limit of ${ms}`, interval}={}){
+		this.#waitFor(ms, interval, this.isEnabled, error);
 	}
 
-	waitForExist(ms = 15000, error = `${this.mapping} did not exist before timeout`){
-		
+	/**
+	 * Wait for element to become disabled, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForDisabled({ms = 15000, error = `${this.element.selector} was not disabled within the time limit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, () => {
+			return !this.isEnabled();
+		}, error);
+	}
+
+	/**
+	 * Wait for element to exist, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForExist({ms = 15000, error = `${this.element.selector} did not exist within the time limit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, this.isExisting, error);
 	}
 	
-	waitForNotExist(ms = 15000, error = `${this.mapping} still existed after timeout`){
-		
+	/**
+	 * Wait for element to not exist, otherwise throw an error
+	 * @param {Number} ms - Time to wait in milliseconds
+	 * @param {String} error - Error message to throw if element is // within time limit
+	 * @param {Number} interval - Time to wait between checks in milliseconds
+	 */
+	waitForNotExist({ms = 15000, error = `${this.element.selector} still existed within the time limit of ${ms}`, interval = 100}={}){
+		this.#waitFor(ms, interval, () => {
+			return !this.isExisting();
+		}, error);
 	}
 
 }
