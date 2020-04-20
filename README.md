@@ -4,8 +4,6 @@ Webinator is a JavaScript(ES8) web automation framework built using WebdriverIO 
 This framework was built knowing that no website is the same, so why would the same automation work for every site? We've done the heavy lifting to make Mocha and Webdriver adaptable for your system under test. With pre-setup classes for mapping elements and running tests, you can easily modify any of the base functions for each class to suit your needs. By doing this, it gives you the ability to easily adapt the framework itself to your needs.
 
 We also wanted to make it simple for any new automation engineers to pick up and start writing tests. As well as giving room for experienced automaters room to expand everything to make your tests as robust as possible.
-
-For the licensing we decided to go with GPLv3. This is meant to keep the code freely available for both individuals working on passion projects and companies ensuring their product is ready for prime time. We just ask that you not repackage and resell it. Instead feel free to open bug and feature tickets and contriubte to the code to help everyone who uses this framework.
 <br/>
 <br/>
 
