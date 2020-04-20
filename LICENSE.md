@@ -1,8 +1,8 @@
-Small Usage License
+### Small Usage License
 
 Copyright (C) 2020 Stone Pack
 
-Permission is hereby granted, free of charge, to any person or company with 50 or less total employees obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without limitation to the rights to use, copy, modify, merge, or share the Software.
+Permission is hereby granted, free of charge, to any person or company with 50 or less total employees obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software within the limitations described below.
 
 Any direct sales of this Software is strictly prohibited. This includes, but is not limited to: 
 a) Selling original or modified versions of the Software as a packaged or distributed product
