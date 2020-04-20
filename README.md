@@ -9,16 +9,14 @@ We've done the heavy lifting to make Mocha and Webdriver adaptable for your syst
 The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows. All commands will be ran inside your OSes terminal (powershell on Winodws).
 
 
-### 1. OpenJDK/JRE
-#### Linux
-```
-sudo apt-get install openjdk-11-jre-headless
-```
-#### Windows
+#### 1. OpenJDK/JRE
+##### Linux
+`sudo apt-get install openjdk-11-jre-headless`
+##### Windows
 ```
 choco install openjdk --version=11.0
 ```
-#### Mac
+##### Mac
 ```
 brew tap AdoptOpenJDK/openjdk
 ```
