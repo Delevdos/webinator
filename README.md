@@ -6,6 +6,7 @@ This framework was built knowing that no website is the same, so why would the s
 We also wanted to make it simple for any new automation engineer to pick up and start writing tests. The page object design we use is meant to make calls to page elements and functions intuitive. To help with this, the Babel compiler includes the class properties and private functions plugins to add a bit more organizational capabilities to vanilla JavaScript.
 <br/>
 <br/>
+
 ## Installation
 The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows. All commands will be ran inside your OSes terminal (powershell on Winodws).
 
@@ -44,14 +45,17 @@ https://classic.yarnpkg.com/en/docs/install/
 `yarn install`
 <br/>
 <br/>
+
 ## Page Objects
 The page object model follows a navigation hierarchy.
 <br/>
 <br/>
+
 ## Test Cases
 All spec files only require 2 import statements.
 <br/>
 <br/>
+
 ## Licensing
 
 MIT
