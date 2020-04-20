@@ -105,4 +105,4 @@ Test.Suite('About Page', () => {
 
 ## Licensing
 
-GPLv3
+Small Usage License
