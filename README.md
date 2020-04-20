@@ -4,10 +4,9 @@ Webinator is a JavaScript web automation framework built using WebdriverIO v6 AP
 We've done the heavy lifting to make Mocha and Webdriver adaptable for your system under test.
 
 
-
 ## Installation
 The below installation steps assume that you have `brew` installed for Mac or `chocolatey` on Windows. All commands will be ran inside your OSes terminal (powershell on Winodws).
----
+
 
 1. **OpenJDK/JRE** 
 * Linux  
